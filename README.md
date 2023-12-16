@@ -23,8 +23,45 @@ This repo tries to present each loop style with a more comprehensible set of sam
 # with_indexed_items
 # with_flattened
 # with_together
-# with_dict
-# with_sequence
+# loop with dictsort or dict2items
+> Formerly with_dict
+
+The [`loop` with `dict2items` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-dict)  (or `dictsort`) will loop over the keys in a dictionary.
+
+Note: `with_dict understands how to parse a _list_ of dictionaries, where `dict2items` and `dictsort` do not natively. To loop over a list of dictionaries (as opposed to a dictionary of dictionaries), additional processing would be required.
+
+Given the data structure of a dictionary `users`:
+```
+    users:
+      user1:
+        department: finance
+        region: emea
+        directories:
+          - /global/finance
+          - /emea/finance
+      user2:
+        department: security
+        region: apac
+        directories:
+          - /apac/infosec
+```
+And the loop structure:
+```
+    - name: with_dict -> loop (option 1)
+      ansible.builtin.debug:
+        msg: "{{ item.key }} - {{ item.value }}"
+      loop: "{{ users | dict2items }}"
+```
+We get the output:
+```
+TASK [with_dict -> loop (option 1)] **************************************************************************************************************************
+ok: [localhost] => (item={'key': 'user1', 'value': {'department': 'finance', 'region': 'emea', 'directories': ['/global/finance', '/emea/finance']}}) => {
+    "msg": "user1 - {'department': 'finance', 'region': 'emea', 'directories': ['/global/finance', '/emea/finance']}"
+}
+ok: [localhost] => (item={'key': 'user2', 'value': {'department': 'security', 'region': 'apac', 'directories': ['/apac/infosec']}}) => {
+    "msg": "user2 - {'department': 'security', 'region': 'apac', 'directories': ['/apac/infosec']}"
+}
+```
 # loop with range
 > Formerly with_sequence
 

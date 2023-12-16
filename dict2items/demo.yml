@@ -1,0 +1,33 @@
+- name: demonstrate loop with subelements
+  hosts: localhost
+  gather_facts: no
+
+  vars:
+    users:
+      user1:
+        department: finance
+        region: emea
+        directories:
+          - /global/finance
+          - /emea/finance
+      user2:
+        department: security
+        region: apac
+        directories:
+          - /apac/infosec
+
+  tasks:
+    - name: with_dict
+      ansible.builtin.debug:
+        msg: "{{ item.key }} - {{ item.value }}"
+      with_dict: "{{ users }}"
+
+    - name: with_dict -> loop (option 1)
+      ansible.builtin.debug:
+        msg: "{{ item.key }} - {{ item.value }}"
+      loop: "{{ users | dict2items }}"
+
+    - name: with_dict -> loop (option 2)
+      ansible.builtin.debug:
+        msg: "{{ item.0 }} - {{ item.1 }}"
+      loop: "{{ users | dictsort }}"
