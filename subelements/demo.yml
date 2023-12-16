@@ -15,7 +15,14 @@
           - file2
 
   tasks:
-    - name: debug the data structure
+    - name: with_subelements
+      ansible.builtin.debug:
+        msg: "{{ item.0.username }} - {{ item.1 }}"
+      with_subelements:
+        - "{{ users }}"
+        - files
+
+    - name: with_subelements -> loop
       ansible.builtin.debug:
         msg:
           - 'item.0 is: {{ item.0 }}'
