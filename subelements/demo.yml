@@ -13,10 +13,11 @@
         files:
           - file1
           - file2
+
   tasks:
     - name: debug the data structure
       ansible.builtin.debug:
         msg:
-          - Item 0 is '{{ item.0 }}'
-          - Item 1 is '{{ item.1 }}'
+          - 'item.0 is: {{ item.0 }}'
+          - 'item.1 is: {{ item.1 }}'
       loop: '{{ users | subelements("files") }}'

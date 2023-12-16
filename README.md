@@ -14,6 +14,11 @@ This repo intends to present each loop style with a slighly more comprehensible 
 # with_together
 # with_dict
 # with_sequence
-# with_subelements
+# loop with subelements (formerly with_subelements)
+
+`loop` with the `subelements` filter is useful to control looping over a data structure that combines known, fixed elements (for example a well-structured dictionary) with a variable element (for example a list that could have any number of varying elements).
+
+
+
 # with_nested / with_cartesian
 # with_random_choice
