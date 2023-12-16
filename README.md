@@ -19,10 +19,104 @@ This repo tries to present each loop style with a more comprehensible set of sam
 - with_random_choice
 
 # with_list
+> Formerly with_list
+The [`loop` with `placeholder` filter]()...
+
+Given the data structure of a dictionary `users`:
+```
+
+```
+And the loop structure:
+```
+
+```
+We get the output:
+```
+
+```
 # with_items
+> Formerly with_items
+The [`loop` with `placeholder` filter]()...
+
+Given the data structure of a dictionary `users`:
+```
+
+```
+And the loop structure:
+```
+
+```
+We get the output:
+```
+
+```
 # with_indexed_items
+> Formerly with_indexed_items
+The [`loop` with `placeholder` filter]()...
+
+Given the data structure of a dictionary `users`:
+```
+
+```
+And the loop structure:
+```
+
+```
+We get the output:
+```
+
+```
 # with_flattened
+> Formerly with_flattened
+The [`loop` with `placeholder` filter]()...
+
+Given the data structure of a dictionary `users`:
+```
+
+```
+And the loop structure:
+```
+
+```
+We get the output:
+```
+
+```
 # with_together
+> Formerly with_together
+The [`loop` with `placeholder` filter]()...
+
+Given the data structure of a dictionary `users`:
+```
+
+```
+And the loop structure:
+```
+
+```
+We get the output:
+```
+
+```
+
+# loop with zip
+> Formerly with_together
+
+The [`loop` with `placeholder` filter]()...
+
+Given the data structure of a dictionary `users`:
+```
+
+```
+And the loop structure:
+```
+
+```
+We get the output:
+```
+
+```
+
 # loop with dictsort or dict2items
 > Formerly with_dict
 
