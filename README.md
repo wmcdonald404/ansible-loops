@@ -1,9 +1,9 @@
 # ansible-loops
 > A list of Ansible loop behaviour with examples
 
-[The Ansible documentation](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#migrating-from-with-x-to-loop) presents a detailed list of loop styles, often mapping the replacement of a with_<something> loop to newer loop syntax.
+[The Ansible documentation](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#migrating-from-with-x-to-loop) presents a detailed list of loop styles, often mapping the replacement of an older style `with_<something>` loop to the newer `loop` with `<some_filter>` syntax.
 
-Most loop examples include sample variables but for some of the more complex looping structures, it's not always immediately obvious how the loop interacts. Sometime the variables used as illustrations are not populated and hence difficult for the layperson to understand or interpret.
+Most loop examples include sample variables but for some of the more complex looping structures, it's not always immediately obvious how the loop interacts. Often variables used in the documented examples are not populated and hence difficult for the layperson to understand or interpret.
 
 This repo intends to present each loop style with a slighly more comprehensible set of sample variables.
 
