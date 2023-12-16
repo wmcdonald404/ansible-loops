@@ -82,23 +82,6 @@ We get the output:
 ```
 
 ```
-# with_together
-> Formerly with_together
-The [`loop` with `placeholder` filter]()...
-
-Given the data structure of a dictionary `users`:
-```
-
-```
-And the loop structure:
-```
-
-```
-We get the output:
-```
-
-```
-
 # loop with zip
 > Formerly with_together
 
