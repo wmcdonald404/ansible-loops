@@ -102,20 +102,46 @@ We get the output:
 # loop with zip
 > Formerly with_together
 
-The [`loop` with `placeholder` filter]()...
+The [`loop` with `zip` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-together) will combine elements of two lists in slices across the intersection of lists.
 
-Given the data structure of a dictionary `users`:
+This could prove a useful pattern where you have sources of data with a common key but disparate sets of data. For example, an inventory system and another operational data silo such as a monitoring system, backup or similar.
+
+Note: `with_items` will output leftover values where the lists are uneven lengths. `loop` with `zip` does not do this by default.
+
+Given the data with two lists below:
 ```
-
+    list_one:
+      - cyan
+      - magenta
+      - yellow
+      - black
+    list_two:
+      - light
+      - medium
+      - dark
 ```
 And the loop structure:
 ```
-
+    - name: with_together -> loop
+      ansible.builtin.debug:
+        msg: "{{ item.0 }} - {{ item.1 }}"
+      loop: "{{ list_one|zip(list_two)|list }}"
 ```
 We get the output:
 ```
-
+TASK [with_together -> loop] *********************************************************************************************************************************
+ok: [localhost] => (item=['cyan', 'light']) => {
+    "msg": "cyan - light"
+}
+ok: [localhost] => (item=['magenta', 'medium']) => {
+    "msg": "magenta - medium"
+}
+ok: [localhost] => (item=['yellow', 'dark']) => {
+    "msg": "yellow - dark"
+}
 ```
+
+Again, note that no match has been made for the 4th list item "black".
 
 # loop with dictsort or dict2items
 > Formerly with_dict
@@ -190,9 +216,9 @@ ok: [localhost] => (item=4) => {
 
 The [`loop` with `subelements` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-subelements) is useful to control looping over a data structure that combines well-known, fixed elements with varying elements.
 
-For example a structured dictionary with a nested element like a list inside the dictionary that could have multiple varying values per-dictionary element.
+For example a list of dictionary entries where one key contains a nested list of a varying number of entries. 
 
-Given the data structure of a dictionary `users` each elements of which includes a nested list `files`:
+Given the data structure a list of dictionaries `users` each elements of which includes a nested list `files`:
 ```
     users:
       - username: user1

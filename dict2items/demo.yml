@@ -1,4 +1,4 @@
-- name: demonstrate loop with subelements
+- name: demonstrate loop with dictitems/dictsort
   hosts: localhost
   gather_facts: no
 
