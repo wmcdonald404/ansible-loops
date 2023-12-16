@@ -5,7 +5,7 @@
 
 Most loop examples include sample variables but for some of the more complex looping structures, it's not always immediately obvious how the loop interacts. Often variables used in the documented examples are not populated and hence difficult for the layperson to understand or interpret.
 
-This repo intends to present each loop style with a slighly more comprehensible set of sample variables.
+This repo tries to present each loop style with a more comprehensible set of sample variables.
 
 - with_list
 - with_items
@@ -25,6 +25,35 @@ This repo intends to present each loop style with a slighly more comprehensible 
 # with_together
 # with_dict
 # with_sequence
+# loop with range
+> Formerly with_sequence
+
+The [`range` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-sequence) can be used to create a sequence of values which can then be looped over. 
+
+For example a series of sequential user names, group names or host names may fit this pattern.
+
+No fixed data structure is required for this example.
+
+Given  the loop structure:
+```
+    - name: with_sequence -> loop
+      ansible.builtin.debug:
+        msg: "{{ 'testuser%02x' | format(item) }}"
+      loop: "{{ range(0, 4 + 1, 2)|list }}"
+```
+We get the output:
+```
+TASK [with_sequence -> loop] *********************************************************************************************************************************
+ok: [localhost] => (item=0) => {
+    "msg": "testuser00"
+}
+ok: [localhost] => (item=2) => {
+    "msg": "testuser02"
+}
+ok: [localhost] => (item=4) => {
+    "msg": "testuser04"
+}
+```
 # loop with subelements
 > Formerly with_subelements
 
@@ -144,7 +173,7 @@ ok: [localhost] => (item=['key', 'dark']) => {
 # random
 > Formerly with_random_choice
 
-The [`random` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-random-choice) Can be used to select a single random value from a list to target. This can be accomplished without a loop.
+The [`random` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-random-choice) can be used to select a single random value from a list to target. This can be accomplished without a loop.
 
 Given the data structure `list_one` containing sample colours:
 ```
@@ -167,8 +196,6 @@ ok: [localhost] => {
     "msg": "cyan"
 }
 ```
-
-
 
 # Further Reading
 - [Ansible - Using filters to manipulate data](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-nested-with-cartesian)
