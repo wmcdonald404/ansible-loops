@@ -1,0 +1,22 @@
+- name: demonstrate loop with subelements
+  hosts: localhost
+  gather_facts: no
+
+  vars:
+    users:
+      - username: user1
+        action: GET
+        files:
+          - file1
+      - username: user2
+        action: GET
+        files:
+          - file1
+          - file2
+  tasks:
+    - name: debug the data structure
+      ansible.builtin.debug:
+        msg:
+          - Item 0 is '{{ item.0 }}'
+          - Item 1 is '{{ item.1 }}'
+      loop: '{{ users | subelements("files") }}'
