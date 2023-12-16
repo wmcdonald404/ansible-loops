@@ -18,7 +18,6 @@ This repo intends to present each loop style with a slighly more comprehensible 
 - with_nested / with_cartesian
 - with_random_choice
 
-
 # with_list
 # with_items
 # with_indexed_items
@@ -27,9 +26,9 @@ This repo intends to present each loop style with a slighly more comprehensible 
 # with_dict
 # with_sequence
 # loop with subelements
-> formerly with_subelements
+> Formerly with_subelements
 
-The [`loop` with `subelements` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-subelements) is useful to control looping over a data structure that combines well-known, fixed elements with any number of varying elements.
+The [`loop` with `subelements` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-subelements) is useful to control looping over a data structure that combines well-known, fixed elements with varying elements.
 
 For example a structured dictionary with a nested element like a list inside the dictionary that could have multiple varying values per-dictionary element.
 
@@ -93,7 +92,6 @@ Given the data structure of two lists, `list_one` containing sample colours, `li
       - light
       - medium
       - dark
-
 ```
 And the loop structure:
 ```
@@ -143,7 +141,34 @@ ok: [localhost] => (item=['key', 'dark']) => {
 }
 ```
 
-# with_random_choice
+# random
+> Formerly with_random_choice
+
+The [`random` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-random-choice) Can be used to select a single random value from a list to target. This can be accomplished without a loop.
+
+Given the data structure `list_one` containing sample colours:
+```
+    list_one:
+      - cyan
+      - magenta
+      - yellow
+      - key
+```
+And the loop structure:
+```
+    - name: with_random_choice -> loop (No loop is needed here)
+      ansible.builtin.debug:
+        msg: "{{ list_one |random }}"
+```
+We get the output:
+```
+TASK [with_random_choice -> loop (No loop is needed here)] ***************************************************************************************************
+ok: [localhost] => {
+    "msg": "cyan"
+}
+```
+
+
 
 # Further Reading
 - [Ansible - Using filters to manipulate data](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-nested-with-cartesian)

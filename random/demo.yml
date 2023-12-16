@@ -1,0 +1,21 @@
+- name: demonstrate loop with random
+  hosts: localhost
+  gather_facts: no
+
+  vars:
+    list_one:
+      - cyan
+      - magenta
+      - yellow
+      - key
+
+  tasks:
+    - name: with_random_choice
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      with_random_choice: "{{ list_one }}"
+
+    - name: with_random_choice -> loop (No loop is needed here)
+      ansible.builtin.debug:
+        msg: "{{ list_one |random }}"
+      tags: random
