@@ -7,6 +7,18 @@ Most loop examples include sample variables but for some of the more complex loo
 
 This repo intends to present each loop style with a slighly more comprehensible set of sample variables.
 
+- with_list
+- with_items
+- with_indexed_items
+- with_flattened
+- with_together
+- with_dict
+- with_sequence
+- loop with subelements
+- with_nested / with_cartesian
+- with_random_choice
+
+
 # with_list
 # with_items
 # with_indexed_items
@@ -14,9 +26,12 @@ This repo intends to present each loop style with a slighly more comprehensible 
 # with_together
 # with_dict
 # with_sequence
-# loop with subelements (formerly with_subelements)
+# loop with subelements
+> formerly with_subelements
 
-[The `loop` with the `subelements`](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-subelements) filter is useful to control looping over a data structure that combines well-known, fixed elements (for example a structured dictionary) with a nested element (for example a list inside the dictionary that could have any number of varying elements).
+The [`loop` with `subelements` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-subelements) is useful to control looping over a data structure that combines well-known, fixed elements with any number of varying elements.
+
+For example a structured dictionary with a nested element like a list inside the dictionary that could have multiple varying values per-dictionary element.
 
 Given the data structure of a dictionary `users` each elements of which includes a nested list `files`:
 ```
@@ -61,8 +76,74 @@ ok: [localhost] => (item=[{'username': 'user2', 'action': 'GET', 'files': ['file
         "item.1 is: file2"
     ]
 }
+```
+# loop with product
+> Formerly with_nested / with_cartesian
+
+The [`loop` with `product` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-nested-with-cartesian) is useful to combine two lists in a loop, resulting in a loop which gives each unique combination of both lists.
+
+Given the data structure of two lists, `list_one` containing sample colours, `list_two` containing sample shades:
+```
+    list_one:
+      - cyan
+      - magenta
+      - yellow
+      - key
+    list_two:
+      - light
+      - medium
+      - dark
 
 ```
+And the loop structure:
+```
+    - name: with_nested -> loop
+      ansible.builtin.debug:
+        msg: "{{ item.0 }} - {{ item.1 }}"
+      loop: "{{ list_one|product(list_two)|list }}"
+```
+We get the output:
+```
+TASK [with_nested -> loop] ***********************************************************************************************************************************
+ok: [localhost] => (item=['cyan', 'light']) => {
+    "msg": "cyan - light"
+}
+ok: [localhost] => (item=['cyan', 'medium']) => {
+    "msg": "cyan - medium"
+}
+ok: [localhost] => (item=['cyan', 'dark']) => {
+    "msg": "cyan - dark"
+}
+ok: [localhost] => (item=['magenta', 'light']) => {
+    "msg": "magenta - light"
+}
+ok: [localhost] => (item=['magenta', 'medium']) => {
+    "msg": "magenta - medium"
+}
+ok: [localhost] => (item=['magenta', 'dark']) => {
+    "msg": "magenta - dark"
+}
+ok: [localhost] => (item=['yellow', 'light']) => {
+    "msg": "yellow - light"
+}
+ok: [localhost] => (item=['yellow', 'medium']) => {
+    "msg": "yellow - medium"
+}
+ok: [localhost] => (item=['yellow', 'dark']) => {
+    "msg": "yellow - dark"
+}
+ok: [localhost] => (item=['key', 'light']) => {
+    "msg": "key - light"
+}
+ok: [localhost] => (item=['key', 'medium']) => {
+    "msg": "key - medium"
+}
+ok: [localhost] => (item=['key', 'dark']) => {
+    "msg": "key - dark"
+}
+```
 
-# with_nested / with_cartesian
 # with_random_choice
+
+# Further Reading
+- [Ansible - Using filters to manipulate data](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-nested-with-cartesian)
