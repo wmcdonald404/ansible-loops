@@ -134,17 +134,40 @@ ok: [localhost] => (item=key) => {
 > Formerly with_flattened
 The [`loop` with `placeholder` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-flattened)...
 
-Given the data structure of a dictionary `users`:
+Given the data structure of nested list `list_one`:
 ```
+      - /usr
+        - /share
+          - /themes
+          - /vim
+          - /zsh
+        - /lib
+        - /bin
+      - /var
+        - /log
+      - /home
 
 ```
 And the loop structure:
 ```
+    - name: with_flattened -> loop
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop: "{{ list_one|flatten }}"
 
 ```
 We get the output:
 ```
-
+TASK [with_flattened -> loop] ********************************************************************************************************************************
+ok: [localhost] => (item=/usr - /share - /themes - /vim - /zsh - /lib - /bin) => {
+    "msg": "/usr - /share - /themes - /vim - /zsh - /lib - /bin"
+}
+ok: [localhost] => (item=/var - /log) => {
+    "msg": "/var - /log"
+}
+ok: [localhost] => (item=/home) => {
+    "msg": "/home"
+}
 ```
 # loop with zip
 > Formerly with_together
