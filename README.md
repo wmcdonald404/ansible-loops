@@ -57,7 +57,7 @@ ok: [localhost] => (item=key) => {
 > Formerly with_items
 The [`loop` with `placeholder `flatten`](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-items) will collapse the leaves of a nested list. 
 
-Given the data structure `list_one` containing sample colours:
+Given the data structure `list_one` containing sample colours, with nested shades of each colour:
 ```
     list_one:
       - reds
@@ -93,25 +93,46 @@ ok: [localhost] => (item=blues - azure - cyan - denim) => {
     "msg": "blues - azure - cyan - denim"
 }
 ```
-# with_indexed_items
+# loop with flatten and loop_control.index_var
 > Formerly with_indexed_items
-The [`loop` with `placeholder` filter]()...
+The [`loop` with `flatten`` and `loop_control.index_var` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-indexed-items)
 
-Given the data structure of a dictionary `users`:
+Given the data structure `list_one` containing sample colours:
 ```
-
+    list_one:
+      - cyan
+      - magenta
+      - yellow
+      - key
 ```
 And the loop structure:
 ```
-
+    - name: with_indexed_items -> loop
+      ansible.builtin.debug:
+        msg: "{{ index }} - {{ item }}"
+      loop: "{{ list_one|flatten(levels=1) }}"
+      loop_control:
+        index_var: index
 ```
 We get the output:
 ```
-
+TASK [with_indexed_items -> loop] ****************************************************************************************************************************
+ok: [localhost] => (item=cyan) => {
+    "msg": "0 - cyan"
+}
+ok: [localhost] => (item=magenta) => {
+    "msg": "1 - magenta"
+}
+ok: [localhost] => (item=yellow) => {
+    "msg": "2 - yellow"
+}
+ok: [localhost] => (item=key) => {
+    "msg": "3 - key"
+}
 ```
 # with_flattened
 > Formerly with_flattened
-The [`loop` with `placeholder` filter]()...
+The [`loop` with `placeholder` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-flattened)...
 
 Given the data structure of a dictionary `users`:
 ```
