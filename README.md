@@ -130,7 +130,7 @@ ok: [localhost] => (item=key) => {
     "msg": "3 - key"
 }
 ```
-# with_flattened
+# loop with flatten
 > Formerly with_flattened
 The [`loop` with `placeholder` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-flattened)...
 
