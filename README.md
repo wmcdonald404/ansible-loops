@@ -57,7 +57,7 @@ ok: [localhost] => (item=key) => {
 # loop with flatten
 > Formerly with_items
 
-The [`loop` with `placeholder `flatten`](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-items) will collapse the leaves of a nested list. 
+The [`loop` with `flatten`](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-items) will collapse the leaves of a nested list. 
 
 Given the data structure `list_one` containing sample colours, with nested shades of each colour:
 ```
@@ -136,7 +136,7 @@ ok: [localhost] => (item=key) => {
 # loop with flatten
 > Formerly with_flattened
 
-The [`loop` with `placeholder` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-flattened)...
+The [`loop` with `flatten` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-flattened)...
 
 Given the data structure of nested list `list_one`:
 ```
