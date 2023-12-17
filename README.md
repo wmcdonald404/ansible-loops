@@ -20,6 +20,7 @@ This repo tries to present each loop style with a more comprehensible set of sam
 
 # loop
 > Formerly with_list
+
 [`loop`](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-list) directly replaces `with_list`. This is the simplest loop structure, given a list of values, loop over each.
 
 Given the data structure `list_one` containing sample colours:
@@ -55,6 +56,7 @@ ok: [localhost] => (item=key) => {
 ```
 # loop with flatten
 > Formerly with_items
+
 The [`loop` with `placeholder `flatten`](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-items) will collapse the leaves of a nested list. 
 
 Given the data structure `list_one` containing sample colours, with nested shades of each colour:
@@ -95,6 +97,7 @@ ok: [localhost] => (item=blues - azure - cyan - denim) => {
 ```
 # loop with flatten and loop_control.index_var
 > Formerly with_indexed_items
+
 The [`loop` with `flatten`` and `loop_control.index_var` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-indexed-items)
 
 Given the data structure `list_one` containing sample colours:
@@ -132,6 +135,7 @@ ok: [localhost] => (item=key) => {
 ```
 # loop with flatten
 > Formerly with_flattened
+
 The [`loop` with `placeholder` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-flattened)...
 
 Given the data structure of nested list `list_one`:
