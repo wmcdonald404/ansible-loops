@@ -18,37 +18,80 @@ This repo tries to present each loop style with a more comprehensible set of sam
 - with_nested / with_cartesian
 - with_random_choice
 
-# with_list
+# loop
 > Formerly with_list
-The [`loop` with `placeholder` filter]()...
+[`loop`](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-list) directly replaces `with_list`. This is the simplest loop structure, given a list of values, loop over each.
 
-Given the data structure of a dictionary `users`:
+Given the data structure `list_one` containing sample colours:
 ```
-
+    list_one:
+      - cyan
+      - magenta
+      - yellow
+      - key
 ```
 And the loop structure:
 ```
-
+    - name: with_list -> loop
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop: '{{ list_one }}'
 ```
 We get the output:
 ```
-
+TASK [with_list -> loop] *************************************************************************************************************************************
+ok: [localhost] => (item=cyan) => {
+    "msg": "cyan"
+}
+ok: [localhost] => (item=magenta) => {
+    "msg": "magenta"
+}
+ok: [localhost] => (item=yellow) => {
+    "msg": "yellow"
+}
+ok: [localhost] => (item=key) => {
+    "msg": "key"
+}
 ```
-# with_items
+# loop with flatten
 > Formerly with_items
-The [`loop` with `placeholder` filter]()...
+The [`loop` with `placeholder `flatten`](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-items) will collapse the leaves of a nested list. 
 
-Given the data structure of a dictionary `users`:
+Given the data structure `list_one` containing sample colours:
 ```
-
+    list_one:
+      - reds
+        - carnation
+        - violet
+        - scarlet
+      - greens
+        - seafoam
+        - inchworm
+        - jade
+      - blues
+        - azure
+        - cyan
+        - denim
 ```
 And the loop structure:
 ```
-
+- name: with_items -> loop
+  ansible.builtin.debug:
+    msg: "{{ item }}"
+  loop: "{{ list_one|flatten(levels=1) }}"
 ```
 We get the output:
 ```
-
+TASK [with_items -> loop] ************************************************************************************************************************************
+ok: [localhost] => (item=reds - carnation - violet - scarlet) => {
+    "msg": "reds - carnation - violet - scarlet"
+}
+ok: [localhost] => (item=greens - seafoam - inchworm - jade) => {
+    "msg": "greens - seafoam - inchworm - jade"
+}
+ok: [localhost] => (item=blues - azure - cyan - denim) => {
+    "msg": "blues - azure - cyan - denim"
+}
 ```
 # with_indexed_items
 > Formerly with_indexed_items
