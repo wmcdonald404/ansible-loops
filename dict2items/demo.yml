@@ -1,6 +1,6 @@
 - name: demonstrate loop with dictitems/dictsort
   hosts: localhost
-  gather_facts: no
+  gather_facts: false
 
   vars:
     users:
