@@ -1,29 +1,27 @@
 - name: demonstrate loop with flatten
   hosts: localhost
-  gather_facts: no
+  gather_facts: false
 
   vars:
     list_one:
-      - reds
-        - carnation
-        - violet
-        - scarlet
-      - greens
-        - seafoam
-        - inchworm
-        - jade
-      - blues
-        - azure
-        - cyan
-        - denim
+      - /usr
+        - /share
+          - /themes
+          - /vim
+          - /zsh
+        - /lib
+        - /bin
+      - /var
+        - /log
+      - /home
 
   tasks:
-    - name: with_items
+    - name: with_flattened
       ansible.builtin.debug:
         msg: "{{ item }}"
-      with_items: "{{ list_one }}"
+      with_flattened: "{{ list_one }}"
 
-    - name: with_items -> loop
+    - name: with_flattened -> loop
       ansible.builtin.debug:
         msg: "{{ item }}"
-      loop: "{{ list_one|flatten(levels=1) }}"
+      loop: "{{ list_one|flatten }}"
