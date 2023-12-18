@@ -222,7 +222,7 @@ Again, note that no match has been made for the 4th list item "black".
 
 The [`loop` with `dict2items` filter](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#with-dict)  (or `dictsort`) will loop over the keys in a dictionary.
 
-Note: `with_dict understands how to parse a _list_ of dictionaries, where `dict2items` and `dictsort` do not natively. To loop over a list of dictionaries (as opposed to a dictionary of dictionaries), additional processing would be required.
+Note: `with_dict` understands how to parse a _list_ of dictionaries, where `dict2items` and `dictsort` do not natively. To loop over a list of dictionaries (as opposed to a dictionary of dictionaries), additional processing would be required.
 
 Given the data structure of a dictionary `users`:
 ```
